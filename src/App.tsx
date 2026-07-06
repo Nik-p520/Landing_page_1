@@ -557,11 +557,8 @@ export default function App() {
         </section>
 
   {/* ── ADMISSION PROCESS SECTION ── */}
-<section className="bg-[#F7FAFF] py-16 relative">
-  {/* FIX: Yeh single empty div ab perfect aur fail-proof anchor ka kaam karega */}
-  {/* scroll-mt-20 isliye taaki sticky navbar aapki heading ko na chhupaye */}
-  <div id="admission" className="absolute -top-4 scroll-mt-20"></div>
-
+<section id="admission" className="bg-[#F7FAFF] py-16 relative">
+  
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <p className="text-center text-[#0D8A6A] text-xs font-bold tracking-widest uppercase mb-2">
       ADMISSION PROCESS
