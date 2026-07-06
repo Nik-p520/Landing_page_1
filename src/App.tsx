@@ -550,7 +550,12 @@ export default function App() {
           </div>
         </section>
 
-        <section id='admission' className="bg-[#F7FAFF] py-16">
+  {/* ── ADMISSION PROCESS SECTION ── */}
+<section className="bg-[#F7FAFF] py-16 relative">
+  {/* FIX: Yeh single empty div ab perfect aur fail-proof anchor ka kaam karega */}
+  {/* scroll-mt-20 isliye taaki sticky navbar aapki heading ko na chhupaye */}
+  <div id="admission" className="absolute -top-4 scroll-mt-20"></div>
+
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <p className="text-center text-[#0D8A6A] text-xs font-bold tracking-widest uppercase mb-2">
       ADMISSION PROCESS
@@ -559,11 +564,11 @@ export default function App() {
       Simple Steps to Join Astha Para Medical College
     </h2>
 
-    {/* Yahan humne flex-col ke sath items-center kiya hai taaki mobile par sab kuch center ho */}
+    {/* Flex container jahan steps map ho rahe hain */}
     <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-4 justify-center">
       {STEPS.map(({ step, title, desc, icon: Icon }, i) => (
         <div key={step} className="flex flex-col md:flex-row items-center w-full md:w-auto">
-          {/* Card container ki width thodi badhadi taaki text properly wrap ho */}
+          
           <div className="flex flex-col items-center text-center w-64 max-w-full mx-auto">
             <p className="text-[#0D8A6A] text-xs font-bold mb-2">{step}</p>
             <div className="w-14 h-14 rounded-full bg-[#0D8A6A] flex items-center justify-center mb-3 shadow-lg">
@@ -573,7 +578,6 @@ export default function App() {
             <p className="text-xs text-gray-500 max-w-[200px]">{desc}</p>
           </div>
           
-          {/* Chevron Right Arrow - Sirf desktop par dikhegi aur perfectly align rahegi */}
           {i < STEPS.length - 1 && (
             <ChevronRight className="w-6 h-6 text-gray-300 hidden md:block md:mt-10 mx-2 flex-shrink-0" />
           )}
@@ -861,7 +865,7 @@ export default function App() {
 
           <div className="border-t border-white/10 pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-blue-400">
-              © 2024 Astha Para Medical College. All Rights Reserved.
+              © 2026 Astha Para Medical College. All Rights Reserved.
             </p>
             <div className="flex gap-4 text-xs text-blue-400">
               <a href="#" className="hover:text-white transition">Privacy Policy</a>
