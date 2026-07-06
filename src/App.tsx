@@ -208,66 +208,73 @@ export default function App() {
   return (
     <div id='home' className="font-sans text-gray-800 relative min-h-screen w-full flex flex-col bg-white">
       {/* ── NAVBAR ── */}
-      <header className="sticky top-0 z-50 bg-white shadow-sm w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-[#0D2B5E] flex items-center justify-center">
-              <GraduationCap className="w-6 h-6 text-white" />
-            </div>
-            <div className="leading-tight">
-              <p className="font-extrabold text-[#0D2B5E] text-sm tracking-wide uppercase">ASTHA</p>
-              <p className="text-[10px] text-gray-500 font-semibold tracking-widest uppercase">Para Medical College</p>
-            </div>
-          </div>
+<header className="sticky top-0 z-50 bg-white shadow-sm w-full">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    {/* Logo */}
+    <div className="flex items-center gap-2">
+      <div className="w-10 h-10 rounded-full bg-[#0D2B5E] flex items-center justify-center">
+        <GraduationCap className="w-6 h-6 text-white" />
+      </div>
+      <div className="leading-tight">
+        <p className="font-extrabold text-[#0D2B5E] text-sm tracking-wide uppercase">ASTHA</p>
+        <p className="text-[10px] text-gray-500 font-semibold tracking-widest uppercase">Para Medical College</p>
+      </div>
+    </div>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {NAV_LINKS.map((link, i) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  i === 0
-                    ? 'text-[#0D8A6A] border-b-2 border-[#0D8A6A] pb-0.5'
-                    : 'text-gray-600 hover:text-[#0D2B5E]'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
+    {/* Desktop nav */}
+    <nav className="hidden md:flex items-center gap-6">
+      {NAV_LINKS.map((link, i) => (
+        <a
+          key={link.name}
+          href={link.href}
+          className={`text-sm font-medium transition-colors ${
+            i === 0
+              ? 'text-[#0D8A6A] border-b-2 border-[#0D8A6A] pb-0.5'
+              : 'text-gray-600 hover:text-[#0D2B5E]'
+          }`}
+        >
+          {link.name}
+        </a>
+      ))}
+    </nav>
 
-          <button
-            onClick={() => openEnquiry()}
-            className="hidden md:flex items-center gap-1.5 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-2 rounded transition hover:bg-[#163a7a]"
-          >
-            Apply for Admission <ChevronRight className="w-4 h-4" />
-          </button>
+    <button
+      onClick={() => openEnquiry()}
+      className="hidden md:flex items-center gap-1.5 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-2 rounded transition hover:bg-[#163a7a]"
+    >
+      Apply for Admission <ChevronRight className="w-4 h-4" />
+    </button>
 
-          {/* Mobile hamburger */}
-          <button className="md:hidden text-gray-700" onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
+    {/* Mobile hamburger */}
+    <button className="md:hidden text-gray-700 p-2 focus:outline-none" onClick={() => setMobileOpen(!mobileOpen)}>
+      {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+    </button>
+  </div>
 
-        {/* Mobile menu */}
-        {mobileOpen && (
-          <div className="md:hidden bg-white border-t px-4 pb-4 space-y-3">
-            {NAV_LINKS.map((link) => (
-              <a key={link.name} href={link.href} className="block text-sm font-medium text-gray-700 hover:text-[#0D2B5E]">
-                {link.name}
-              </a>
-            ))}
-            <button
-              onClick={() => openEnquiry()}
-              className="inline-flex items-center gap-1 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-2 rounded"
-            >
-              Apply for Admission <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-      </header>
+  {/* FIXED Mobile menu */}
+  {mobileOpen && (
+    <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg z-50 px-6 py-4 space-y-4 transition-all duration-300">
+      {NAV_LINKS.map((link) => (
+        <a 
+          key={link.name} 
+          href={link.href} 
+          onClick={() => setMobileOpen(false)} 
+          className="block text-base font-medium text-gray-700 hover:text-[#0D2B5E] py-1 border-b border-gray-50 last:border-none"
+        >
+          {link.name}
+        </a>
+      ))}
+      <div className="pt-2">
+        <button
+          onClick={() => { setMobileOpen(false); openEnquiry(); }}
+          className="w-full flex items-center justify-center gap-1 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-3 rounded shadow-md"
+        >
+          Apply for Admission <ChevronRight className="w-4 h-4" />
+        </button>
+      </div>
+    </div>
+  )}
+</header>
 
       {/* ── MAIN CONTENT WRAPPER ── */}
       <main className="w-full flex-1">
