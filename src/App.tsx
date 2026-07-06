@@ -252,7 +252,8 @@ export default function App() {
   </div>
 
   {/* Mobile menu */}
-  {mobileOpen && (
+  {/* Mobile menu - Fixed Scroll Logic */}
+{mobileOpen && (
   <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg z-50 px-6 py-4 space-y-4 transition-all duration-300">
     <nav className="flex flex-col space-y-3">
       {NAV_LINKS.map((link) => (
@@ -260,21 +261,23 @@ export default function App() {
           key={link.name} 
           href={link.href} 
           onClick={(e) => {
-            // 1. Prevent default standard anchor glitching
+            // 1. Default anchor action ko prevent karo taaki instant jump na ho
             e.preventDefault(); 
             
-            // 2. Close the menu first so layout calculates perfectly
+            // 2. Menu ko close karo
             setMobileOpen(false);
             
-            // 3. Find target section and smoothly slide down to it
+            // 3. TARGET FIX: Link se ID nikaalo
             const targetId = link.href.replace('#', '');
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-              // Tiny delay to allow state changes to finish processing
-              setTimeout(() => {
+            
+            // 4. TIMEOUT TRICK: Mobile browser ko menu close karne ka poora time do, 
+            // uske baad scroll trigger karo taaki layout calculations miss na hon.
+            setTimeout(() => {
+              const targetElement = document.getElementById(targetId);
+              if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 150);
-            }
+              }
+            }, 300); // Delay thoda badha diya hai mobile hardware optimization ke liye
           }}
           className="block text-base font-medium text-gray-700 hover:text-[#0D2B5E] py-2 border-b border-gray-50 last:border-none active:bg-gray-50"
         >
@@ -285,7 +288,10 @@ export default function App() {
     
     <div className="pt-2 border-t border-gray-100">
       <button
-        onClick={() => openEnquiry()} 
+        onClick={() => {
+          setMobileOpen(false);
+          openEnquiry();
+        }} 
         className="w-full flex items-center justify-center gap-1 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-3 rounded shadow-md cursor-pointer relative z-50 active:bg-[#163a7a]"
       >
         Apply for Admission <ChevronRight className="w-4 h-4" />
