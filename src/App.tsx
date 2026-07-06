@@ -478,35 +478,38 @@ export default function App() {
           </div>
         </section>
 
-        {/* ── ADMISSION PROCESS ── */}
         <section id='admission' className="bg-[#F7FAFF] py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-[#0D8A6A] text-xs font-bold tracking-widest uppercase mb-2">
-              ADMISSION PROCESS
-            </p>
-            <h2 className="text-center text-3xl font-extrabold text-[#0D2B5E] mb-12">
-              Simple Steps to Join Astha Para Medical College
-            </h2>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p className="text-center text-[#0D8A6A] text-xs font-bold tracking-widest uppercase mb-2">
+      ADMISSION PROCESS
+    </p>
+    <h2 className="text-center text-3xl font-extrabold text-[#0D2B5E] mb-12">
+      Simple Steps to Join Astha Para Medical College
+    </h2>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 justify-center">
-              {STEPS.map(({ step, title, desc, icon: Icon }, i) => (
-                <div key={step} className="flex items-center gap-4">
-                  <div className="flex flex-col items-center text-center w-40">
-                    <p className="text-[#0D8A6A] text-xs font-bold mb-2">{step}</p>
-                    <div className="w-14 h-14 rounded-full bg-[#0D8A6A] flex items-center justify-center mb-3 shadow-lg">
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-bold text-[#0D2B5E] text-sm mb-1">{title}</h3>
-                    <p className="text-xs text-gray-500">{desc}</p>
-                  </div>
-                  {i < STEPS.length - 1 && (
-                    <ChevronRight className="w-6 h-6 text-gray-300 hidden md:block flex-shrink-0" />
-                  )}
-                </div>
-              ))}
+    {/* Yahan humne flex-col ke sath items-center kiya hai taaki mobile par sab kuch center ho */}
+    <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-4 justify-center">
+      {STEPS.map(({ step, title, desc, icon: Icon }, i) => (
+        <div key={step} className="flex flex-col md:flex-row items-center w-full md:w-auto">
+          {/* Card container ki width thodi badhadi taaki text properly wrap ho */}
+          <div className="flex flex-col items-center text-center w-64 max-w-full mx-auto">
+            <p className="text-[#0D8A6A] text-xs font-bold mb-2">{step}</p>
+            <div className="w-14 h-14 rounded-full bg-[#0D8A6A] flex items-center justify-center mb-3 shadow-lg">
+              <Icon className="w-6 h-6 text-white" />
             </div>
+            <h3 className="font-bold text-[#0D2B5E] text-sm mb-1">{title}</h3>
+            <p className="text-xs text-gray-500 max-w-[200px]">{desc}</p>
           </div>
-        </section>
+          
+          {/* Chevron Right Arrow - Sirf desktop par dikhegi aur perfectly align rahegi */}
+          {i < STEPS.length - 1 && (
+            <ChevronRight className="w-6 h-6 text-gray-300 hidden md:block md:mt-10 mx-2 flex-shrink-0" />
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
         {/* ── TESTIMONIALS ── */}
         <section className="bg-white py-16">
