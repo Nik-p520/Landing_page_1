@@ -15,6 +15,7 @@ import {
   Youtube,
   Linkedin,
   ChevronLeft,
+  ChevronDown,
   Star,
   FlaskConical,
   Building2,
@@ -34,6 +35,7 @@ const NAV_LINKS = [
   { name: "Courses", href: "#courses" },
   { name: "Admissions", href: "#admission" },
   { name: "Campus", href: "#campus" },
+  { name: "FAQ", href: "#faq" },
   { name: "Contact Us", href: "#contact" },
 ];
 
@@ -93,22 +95,65 @@ const WHY_CHOOSE = [
   },
 ];
 
-const FACILITIES = [
+// const FACILITIES = [
+//   {
+//     label: 'Advanced Labs',
+//     img: 'https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=400',
+//   },
+//   {
+//     label: 'Clinical Practice',
+//     img: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=400',
+//   },
+//   {
+//     label: 'Library & Study',
+//     img: 'https://images.pexels.com/photos/1106468/pexels-photo-1106468.jpeg?auto=compress&cs=tinysrgb&w=400',
+//   },
+//   {
+//     label: 'Smart Classrooms',
+//     img: 'https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=400',
+//   },
+// ];
+
+const FAQS = [
   {
-    label: 'Advanced Labs',
-    img: 'https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=400',
+    question: "What courses are offered at Astha Para Medical College?",
+    answer:
+      "We offer ANM (Auxiliary Nurse Midwife) and B.Sc Nursing programs with quality education and practical clinical training.",
   },
   {
-    label: 'Clinical Practice',
-    img: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=400',
+    question: "What is the eligibility for ANM admission?",
+    answer:
+      "Candidates must have successfully completed 10+2 from a recognized board.",
   },
   {
-    label: 'Library & Study',
-    img: 'https://images.pexels.com/photos/1106468/pexels-photo-1106468.jpeg?auto=compress&cs=tinysrgb&w=400',
+    question: "What is the eligibility for B.Sc Nursing?",
+    answer:
+      "Candidates must have passed 10+2 with Physics, Chemistry and Biology (PCB) from a recognized board.",
   },
   {
-    label: 'Smart Classrooms',
-    img: 'https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=400',
+    question: "What documents are required for admission?",
+    answer:
+      "10th & 12th Marksheet, Transfer Certificate, Aadhaar Card, Passport-size photographs and other documents as required.",
+  },
+  {
+    question: "Does the college provide practical training?",
+    answer:
+      "Yes. Students receive laboratory sessions, hospital exposure and clinical training throughout the course.",
+  },
+  {
+    question: "Is placement support available?",
+    answer:
+      "Yes. We provide career guidance and placement assistance to help students build successful healthcare careers.",
+  },
+  {
+    question: "How can I apply for admission?",
+    answer:
+      "Click the 'Apply for Admission' button anywhere on this page or contact our admission office directly.",
+  },
+  {
+    question: "Is hostel facility available?",
+    answer:
+      "Please contact our admission office to know the latest hostel availability and accommodation details.",
   },
 ];
 
@@ -148,6 +193,7 @@ export default function App() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [showEnquiry, setShowEnquiry] = useState(false);
   const [enquiryCourse, setEnquiryCourse] = useState<'ANM' | 'B.Sc Nursing' | ''>('');
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const openEnquiry = (course: 'ANM' | 'B.Sc Nursing' | '' = '') => {
     setEnquiryCourse(course);
@@ -646,6 +692,66 @@ export default function App() {
           </div>
         </section>
       </main>
+
+      <section id="faq" className="bg-[#F7FAFF] py-16">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <p className="text-center text-[#0D8A6A] text-xs font-bold tracking-widest uppercase mb-2">
+      Frequently Asked Questions
+    </p>
+
+    <h2 className="text-center text-3xl font-extrabold text-[#0D2B5E] mb-12">
+      Have Questions? We Have Answers
+    </h2>
+
+    <div className="space-y-4">
+
+      {FAQS.map((faq, index) => (
+        <div
+          key={index}
+          className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+        >
+
+          <button
+            onClick={() =>
+              setOpenFaq(openFaq === index ? null : index)
+            }
+            className="w-full flex items-center justify-between p-5 text-left"
+          >
+
+            <span className="font-semibold text-[#0D2B5E]">
+              {faq.question}
+            </span>
+
+            <ChevronDown
+              className={`w-5 h-5 text-[#0D8A6A] transition-transform duration-300 ${
+                openFaq === index ? "rotate-180" : ""
+              }`}
+            />
+
+          </button>
+
+          <div
+            className={`transition-all duration-300 overflow-hidden ${
+              openFaq === index
+                ? "max-h-40 opacity-100"
+                : "max-h-0 opacity-0"
+            }`}
+          >
+
+            <p className="px-5 pb-5 text-gray-600 leading-relaxed">
+              {faq.answer}
+            </p>
+
+          </div>
+
+        </div>
+      ))}
+
+    </div>
+
+  </div>
+</section>
 
       {/* ── FOOTER ── */}
       <footer id='contact' className="bg-[#081B3E] text-blue-100 pt-14 pb-6 w-full">
