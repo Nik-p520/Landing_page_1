@@ -251,8 +251,7 @@ export default function App() {
     </button>
   </div>
 
-  {/* Mobile menu */}
-  {/* Mobile menu - Fixed Scroll Logic */}
+  {/* Mobile menu - The Ultimate Animation Frame Fix */}
 {mobileOpen && (
   <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg z-50 px-6 py-4 space-y-4 transition-all duration-300">
     <nav className="flex flex-col space-y-3">
@@ -261,23 +260,23 @@ export default function App() {
           key={link.name} 
           href={link.href} 
           onClick={(e) => {
-            // 1. Default anchor action ko prevent karo taaki instant jump na ho
-            e.preventDefault(); 
+            e.preventDefault(); // Default jump ko roko
             
-            // 2. Menu ko close karo
-            setMobileOpen(false);
+            setMobileOpen(false); // Menu band karne ka order do
             
-            // 3. TARGET FIX: Link se ID nikaalo
             const targetId = link.href.replace('#', '');
             
-            // 4. TIMEOUT TRICK: Mobile browser ko menu close karne ka poora time do, 
-            // uske baad scroll trigger karo taaki layout calculations miss na hon.
-            setTimeout(() => {
-              const targetElement = document.getElementById(targetId);
-              if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }, 300); // Delay thoda badha diya hai mobile hardware optimization ke liye
+            // ── MAGIC TRICK ──
+            // Pehli frame: Menu close hone ki state process hone do
+            requestAnimationFrame(() => {
+              // Dusri frame: Jab DOM completely update ho chuka ho, tab scroll karo
+              requestAnimationFrame(() => {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              });
+            });
           }}
           className="block text-base font-medium text-gray-700 hover:text-[#0D2B5E] py-2 border-b border-gray-50 last:border-none active:bg-gray-50"
         >
@@ -299,6 +298,7 @@ export default function App() {
     </div>
   </div>
 )}
+
 </header>
 
       {/* ── MAIN CONTENT WRAPPER ── */}
