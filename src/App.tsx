@@ -266,17 +266,20 @@ export default function App() {
             
             const targetId = link.href.replace('#', '');
             
-            // ── MAGIC TRICK ──
-            // Pehli frame: Menu close hone ki state process hone do
-            requestAnimationFrame(() => {
-              // Dusri frame: Jab DOM completely update ho chuka ho, tab scroll karo
-              requestAnimationFrame(() => {
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-              });
-            });
+            // Menu close + layout reflow settle hone ka time do,
+            // phir manually offset ke saath scroll karo (sticky navbar ke liye)
+            setTimeout(() => {
+              const targetElement = document.getElementById(targetId);
+              if (targetElement) {
+                const NAVBAR_OFFSET = 70; // apni navbar height ke hisaab se adjust karo
+                const y =
+                  targetElement.getBoundingClientRect().top +
+                  window.scrollY -
+                  NAVBAR_OFFSET;
+
+                window.scrollTo({ top: y, behavior: 'smooth' });
+              }
+            }, 150);
           }}
           className="block text-base font-medium text-gray-700 hover:text-[#0D2B5E] py-2 border-b border-gray-50 last:border-none active:bg-gray-50"
         >
