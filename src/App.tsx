@@ -251,7 +251,7 @@ export default function App() {
     </button>
   </div>
 
-  {/* FIXED Mobile menu */}
+  {/* Mobile menu */}
   {mobileOpen && (
   <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg z-50 px-6 py-4 space-y-4 transition-all duration-300">
     <nav className="flex flex-col space-y-3">
@@ -259,9 +259,22 @@ export default function App() {
         <a 
           key={link.name} 
           href={link.href} 
-          onClick={() => {
-            // Chota sa delay taaki browser smoothly scroll trigger kar sake aur menu close ho
-            setTimeout(() => setMobileOpen(false), 100);
+          onClick={(e) => {
+            // 1. Prevent default standard anchor glitching
+            e.preventDefault(); 
+            
+            // 2. Close the menu first so layout calculates perfectly
+            setMobileOpen(false);
+            
+            // 3. Find target section and smoothly slide down to it
+            const targetId = link.href.replace('#', '');
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              // Tiny delay to allow state changes to finish processing
+              setTimeout(() => {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 150);
+            }
           }}
           className="block text-base font-medium text-gray-700 hover:text-[#0D2B5E] py-2 border-b border-gray-50 last:border-none active:bg-gray-50"
         >
@@ -272,7 +285,7 @@ export default function App() {
     
     <div className="pt-2 border-t border-gray-100">
       <button
-        onClick={() => openEnquiry()} // Button par close nahi hoga, Enquiry Form pop-up khulega
+        onClick={() => openEnquiry()} 
         className="w-full flex items-center justify-center gap-1 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-3 rounded shadow-md cursor-pointer relative z-50 active:bg-[#163a7a]"
       >
         Apply for Admission <ChevronRight className="w-4 h-4" />
