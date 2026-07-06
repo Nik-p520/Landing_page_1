@@ -31,10 +31,10 @@ import {
 
 const NAV_LINKS = [
   { name: "Home", href: "#home" },
-  { name: "About Us", href: "#about" },
   { name: "Courses", href: "#courses" },
-  { name: "Admissions", href: "#admission" },
+  { name: "About Us", href: "#about" },
   { name: "Campus", href: "#campus" },
+  { name: "Admissions", href: "#admission" },
   { name: "FAQ", href: "#faq" },
   { name: "Contact Us", href: "#contact" },
 ];
@@ -253,27 +253,33 @@ export default function App() {
 
   {/* FIXED Mobile menu */}
   {mobileOpen && (
-    <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg z-50 px-6 py-4 space-y-4 transition-all duration-300">
+  <div className="md:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg z-50 px-6 py-4 space-y-4 transition-all duration-300">
+    <nav className="flex flex-col space-y-3">
       {NAV_LINKS.map((link) => (
         <a 
           key={link.name} 
           href={link.href} 
-          onClick={() => setMobileOpen(false)} 
-          className="block text-base font-medium text-gray-700 hover:text-[#0D2B5E] py-1 border-b border-gray-50 last:border-none"
+          onClick={() => {
+            // Chota sa delay taaki browser smoothly scroll trigger kar sake aur menu close ho
+            setTimeout(() => setMobileOpen(false), 100);
+          }}
+          className="block text-base font-medium text-gray-700 hover:text-[#0D2B5E] py-2 border-b border-gray-50 last:border-none active:bg-gray-50"
         >
           {link.name}
         </a>
       ))}
-      <div className="pt-2">
-        <button
-          onClick={() => { setMobileOpen(false); openEnquiry(); }}
-          className="w-full flex items-center justify-center gap-1 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-3 rounded shadow-md"
-        >
-          Apply for Admission <ChevronRight className="w-4 h-4" />
-        </button>
-      </div>
+    </nav>
+    
+    <div className="pt-2 border-t border-gray-100">
+      <button
+        onClick={() => openEnquiry()} // Button par close nahi hoga, Enquiry Form pop-up khulega
+        className="w-full flex items-center justify-center gap-1 bg-[#0D2B5E] text-white text-sm font-semibold px-5 py-3 rounded shadow-md cursor-pointer relative z-50 active:bg-[#163a7a]"
+      >
+        Apply for Admission <ChevronRight className="w-4 h-4" />
+      </button>
     </div>
-  )}
+  </div>
+)}
 </header>
 
       {/* ── MAIN CONTENT WRAPPER ── */}
